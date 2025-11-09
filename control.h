@@ -1,6 +1,7 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
+#include "sl_bluetooth.h"
 
 // Egysoros "sink" callback típus (app.c adja meg).
 // Minden új mintánál hívjuk: lpm, pulses, error_code (0=OK, !0 hiba)

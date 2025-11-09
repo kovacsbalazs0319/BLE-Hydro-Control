@@ -43,9 +43,9 @@ GATT_DATA(sli_bt_gattdb_attribute_chrvalue_t gattdb_attribute_field_29) = {
 };
 GATT_DATA(sli_bt_gattdb_attribute_chrvalue_t gattdb_attribute_field_26) = {
   .properties = 0x12,
-  .max_len = 1,
+  .max_len = 3,
   .len = 1,
-  .data = { 0x00, }
+  .data = { 0x00, 0x00, 0x00, }
 };
 GATT_DATA(const sli_bt_gattdb_value_t gattdb_attribute_field_24) = {
   .len = 16,

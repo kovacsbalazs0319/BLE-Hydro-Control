@@ -1,13 +1,33 @@
 control.o: ../control.c \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h \
  ../control.h \
+ C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_bluetooth.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h \
+ C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_power_manager_config.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_common.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_compiler.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_gcc.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core_generic.h \
+ C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_bluetooth_config.h \
+ C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_component_catalog.h \
+ C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_bluetooth_connection_config.h \
+ C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_bluetooth_advertiser_config.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_stack_config.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_ll_config.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bgapi.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api_compatibility.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\core_cm33.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_version.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_compiler.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_gcc.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\mpu_armv8.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\system_bgm22.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_emu.h \
@@ -47,30 +67,20 @@ control.o: ../control.c \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_prs_signals.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h \
- C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_component_catalog.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core_generic.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_common.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h \
  C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/emlib_core_debug_config.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\sli_em_cmu.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\app\common\util\app_log\app_log.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_iostream_handles.h \
  C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_iostream_init_usart_instances.h \
  C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_component_catalog.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h \
- C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_power_manager_config.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core_generic.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emdrv\dmadrv\inc\dmadrv.h \
@@ -79,16 +89,38 @@ control.o: ../control.c \
  C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/dmadrv_config.h \
  C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/app_log_config.h \
  c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h \
- c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_timer.h
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_timer.h \
+ ../app.h \
+ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\toolchain\inc\sl_gcc_preinclude.h:
 ../control.h:
+C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_bluetooth.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h:
+C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_power_manager_config.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_common.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_compiler.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_gcc.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core_generic.h:
+C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_bluetooth_config.h:
+C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_component_catalog.h:
+C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_bluetooth_connection_config.h:
+C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_bluetooth_advertiser_config.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_stack_config.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_ll_config.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bgapi.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\protocol\bluetooth\inc\sl_bt_api_compatibility.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\em_device.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm220pc22hna.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\core_cm33.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_version.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_compiler.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\cmsis_gcc.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\cmsis\core\include\mpu_armv8.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\system_bgm22.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_emu.h:
@@ -128,30 +160,20 @@ c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm2
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_prs_signals.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_dma_descriptor.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\device\siliconlabs\bgm22\include\bgm22_ldmaxbar_defines.h:
-C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_component_catalog.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_bus.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core_generic.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_common.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_assert.h:
 C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/emlib_core_debug_config.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_enum.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_cmu_compat.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_gpio.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_status.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\sli_em_cmu.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\sleeptimer\inc\sl_sleeptimer.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\app\common\util\app_log\app_log.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_iostream_handles.h:
 C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_iostream_init_usart_instances.h:
 C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\autogen/sl_component_catalog.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\power_manager\inc\sl_power_manager.h:
-C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/sl_power_manager_config.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\common\inc\sl_slist.h:
-c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_core_generic.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream_uart.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\service\iostream\inc\sl_iostream.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emdrv\dmadrv\inc\dmadrv.h:
@@ -161,3 +183,5 @@ C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/dmadrv_con
 C:\Users\Balazs\SimplicityStudio\v5_workspace\ble_hydro_module\config/app_log_config.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emdrv\gpiointerrupt\inc\gpiointerrupt.h:
 c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_timer.h:
+../app.h:
+c:\users\balazs\simplicitystudio\sdks\gecko_sdk\platform\emlib\inc\em_common.h:

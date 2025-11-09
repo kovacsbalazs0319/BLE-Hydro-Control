@@ -31,6 +31,9 @@
 #ifndef APP_H
 #define APP_H
 
+#include "em_common.h"
+#include "em_cmu.h"
+
 /**************************************************************************//**
  * Application Init.
  *****************************************************************************/
@@ -41,4 +44,32 @@ void app_init(void);
  *****************************************************************************/
 void app_process_action(void);
 
+/**************************************************************************//**
+ * GATT functions.
+ *****************************************************************************/
+// Updates the Pump Enable characteristic.
+sl_status_t update_pump_enable_characteristic(uint8_t data_send);
+// Sends notification of the Flow State characteristic.
+sl_status_t send_flow_rate_notification(uint16_t data_send);
+// Sends notification of the Error characteristic.
+sl_status_t send_error_state_notification(uint8_t data_send);
+// Update the Send Error characteristic.
+sl_status_t update_send_error_characteristic(uint8_t data_send);
+// Update the Flow Rate characteristic.
+sl_status_t update_flow_rate_characteristic(uint16_t data_send);
+
+uint16_t shared_get_flow_x100(void);
+void shared_set_flow_x100(uint16_t v);
+uint8_t shared_get_err(void);
+void shared_set_err(uint8_t v);
+
+
+#define SIG_FLOW  (1u << 0)
+#define SIG_ERR   (1u << 1)
+
+extern volatile uint16_t g_flow_x100;
+extern volatile uint8_t  g_err;
+
+
+#define SIG_SAMPLE  (1u << 0)   // 0x00000001
 #endif // APP_H

@@ -8,6 +8,8 @@
 #include "gpiointerrupt.h"
 #include "em_timer.h"
 
+#include "app.h"
+
 
 // ---- Pin kiosztás ----------------------------------------------------------
 #define PUMP_PORT         gpioPortD
@@ -18,7 +20,7 @@
 #define FLOW_PIN          0   // C0 : Flow_data (rising edge count)
 
 // ---- Átfolyásszenzor konstansok (YF-S201) --------------------------
-#define FLOW_HZ_PER_LPM   5.71f   // 5.71 Hz == 1 L/min  (Q[L/min] = F[Hz] / 7.5)
+#define FLOW_HZ_PER_LPM   5.71   // 5.71 Hz == 1 L/min  (Q[L/min] = F[Hz] / 5.71)
 
 // ---- PWM paraméterek -------------------------------------------------------
 #define PWM_HZ          1000u   // 1 kHz
@@ -33,12 +35,12 @@
 static volatile uint32_t s_pulses = 0;
 static uint32_t s_last_ticks = 0;
 static uint32_t s_last_pulses = 0;
-static float    s_lpm = 0.0f;
+static double    s_lpm = 0.0;
 
 static bool     s_enabled = false;
 static uint8_t  s_error   = 0;
 
-static float    s_min_lpm_after = 0.2f; // pl. 0.2 L/min alatt hibának vesszük...
+static double    s_min_lpm_after = 0.2; // pl. 0.2 L/min alatt hibának vesszük...
 static uint8_t  s_min_after_s   = 3;    // ...3 mp-vel bekapcs után
 
 static hydro_sink_t      s_sink = 0;
@@ -151,10 +153,10 @@ static void sample_cb(sl_sleeptimer_timer_handle_t *handle, void *data)
   uint32_t p = s_pulses;
   __enable_irq();
 
-  uint32_t dp = p - s_last_pulses;
+  double dp = p - s_last_pulses;
   s_last_pulses = p;
 
-  s_lpm = ((float)dp) / FLOW_HZ_PER_LPM;
+  s_lpm = dp / FLOW_HZ_PER_LPM;
 
   // egyszerű dry-run hiba: csak a bekapcsolás utáni n. másodperctől figyeljük
   static uint8_t seconds_since_on = 0;
@@ -166,10 +168,19 @@ static void sample_cb(sl_sleeptimer_timer_handle_t *handle, void *data)
 
   if (s_enabled && seconds_since_on >= s_min_after_s && s_lpm < s_min_lpm_after) {
     s_error = 1; // dry
+    shared_set_err(1);
   } else if (!s_enabled) {
     s_error = 0;
+    shared_set_err(0);
   }
 
+  uint16_t flow_x100 = (uint16_t)(s_lpm * 100.0 + 0.5);
+  shared_set_flow_x100(flow_x100);
+
+
+    uint32_t bits = SIG_FLOW | SIG_ERR;
+    //g_sig_bits |= bits;                  // ha több minta jön, össze-OR-oljuk
+    (void)sl_bt_external_signal(bits);   // csak jelezni szabad ISR-ből
 
 
   if (s_sink) {
@@ -177,23 +188,7 @@ static void sample_cb(sl_sleeptimer_timer_handle_t *handle, void *data)
   }
 }
 
-// ---- 1 kHz PWM callback (1 ms periódus) ----
-/*static void pwm_cb(sl_sleeptimer_timer_handle_t *h, void *data)
-{
-  (void)h; (void)data;
-  static uint32_t phase = 0;
 
-  if (phase == 0) {
-    // periódus eleje: HIGH szakasz kezdete
-    GPIO_PinOutSet(PUMP_PORT, PUMP_PIN_PWM);
-  } else if (phase == PWM_NUM) {
-    // duty vége: LOW-ra váltunk a periódus maradékára
-    GPIO_PinOutClear(PUMP_PORT, PUMP_PIN_PWM);
-  }
-
-  phase++;
-  if (phase >= PWM_DEN) phase = 0;
-}*/
 
 // ---- PUBLIC ----
 void hydro_init(void)

@@ -80,7 +80,7 @@
 
     <!--Flowrate-->
     <characteristic const="false" id="flow_rate" name="Flowrate" sourceId="" uuid="5b026510-4088-c297-46d8-be6c736a0001">
-      <value length="0" type="hex" variable_length="true">00</value>
+      <value length="3" type="hex" variable_length="true">00</value>
       <properties>
         <read authenticated="false" bonded="false" encrypted="false"/>
         <notify authenticated="false" bonded="false" encrypted="false"/>
