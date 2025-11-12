@@ -89,37 +89,7 @@ static void hydro_ble_sink(float lpm, uint32_t pulses, uint8_t error_code, void 
 
   app_log("Flow: %.2f L/min, pulses=%lu, err=%u\r\n",
                     (double)lpm, (unsigned long)pulses, (unsigned)error_code);
-
-
-  // -- Flowrate: L/min * 100 → u16 (LE) --
-  /*uint16_t lpm_x100 = (uint16_t)(lpm * 100.0f + 0.5f);
-  sl_status_t sc;*/
-
-  /*  sc = sl_bt_gatt_server_write_attribute_value(gattdb_flow_rate, 0,
-                                                 sizeof(lpm_x100), (uint8_t*)&lpm_x100);
-  if (sc == SL_STATUS_OK) {
-    (void)sl_bt_gatt_server_notify_all(gattdb_flow_rate,
-                                       sizeof(lpm_x100), (uint8_t*)&lpm_x100);
-  } else {
-     app_log("GATT write error (%d) on attr %u\r\n", (int)sc, (int)gattdb_flow_rate);
-  }*/
-
-  //send_flow_rate_notification();
-
-  // -- Error: u8 --
-  /*sc = sl_bt_gatt_server_write_attribute_value(gattdb_send_error, 0,
-                                               sizeof(error_code), &error_code);
-  if (sc == SL_STATUS_OK) {
-    (void)sl_bt_gatt_server_notify_all(gattdb_send_error,
-                                       sizeof(error_code), &error_code);
-  } else {
-      app_log("GATT write error (%d) on attr %u\r\n", (int)sc, (int)gattdb_send_error);
-   }*/
-
-  //send_error_state_notification();
-
-  // Ha a pulses-t is publikálnád külön, itt megteheted:
-  (void)pulses;
+  return;
 }
 
 /**************************************************************************//**
@@ -135,7 +105,8 @@ SL_WEAK void app_init(void)
   /////////////////////////////////////////////////////////////////////////////
 
   hydro_init();
-  hydro_set_sink(hydro_ble_sink, NULL);   // beregisztrálod az 1 soros küldődet
+  hydro_set_sink(hydro_ble_sink, NULL);   // register debug sink interface
+                                          // uses serial terminal
 
   app_log("handles: flow=%u err=%u\r\n",
           (unsigned)gattdb_flow_rate, (unsigned)gattdb_send_error);
@@ -308,7 +279,6 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
           app_log("External sig arrived\r\n");
           uint32_t sig = evt->data.evt_system_external_signal.extsignals;
           if (sig & SIG_SAMPLE) {
-            // Olvasd ki a cache-elt értékeket és KÜLDJ
             uint16_t flow = shared_get_flow_x100();
             uint8_t  err  = shared_get_err();
             app_log("ntf_flow_enable: %d   ntf_err_enable: %d\r\n",ntf_flow_enabled, ntf_err_enabled);
