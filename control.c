@@ -41,10 +41,10 @@
 
 
 // ---- Pin layout ------------------------------------------------------------------
-// H-bridge (or driver) inputs: I1A (PWM) and I1B (forced LOW). Route CC0 to I1A.
+// H-bridge (or driver) inputs: I2A (PWM) and I2B (forced LOW). Route CC0 to I2A.
 #define PUMP_PORT         gpioPortD
-#define PUMP_PIN_PWM      3   // D3 : I1A  -> PWM
-#define PUMP_PIN_LOW      2   // D2 : I1B  -> fix LOW
+#define PUMP_PIN_PWM      3   // D3 : I2A  -> PWM
+#define PUMP_PIN_LOW      2   // D2 : I2B  -> fix LOW
 
 // Flow sensor input: rising edge counting (debounced by input filter)
 #define FLOW_PORT         gpioPortC
@@ -81,6 +81,9 @@ static uint8_t  s_error   = 0;
 static double    s_min_lpm_after = 0.2; // bellow 0.2 L/min we give dry error if...
 static uint8_t  s_min_after_s   = 3;    // ...it's been the case for 3 seconds
 
+// Latched dry-run state: once set, stays active until hydro_enable(true) is called
+static bool s_dryrun_latched = false;
+
 // Optional sink callback to mirror computed telemetry to user code (debugging)
 static hydro_sink_t      s_sink = 0;
 static void             *s_sink_user = 0;
@@ -95,8 +98,8 @@ static sl_sleeptimer_timer_handle_t s_sample_tmr;
 static void pump_gpio_init(void)
 {
   CMU_ClockEnable(cmuClock_GPIO, true);
-  GPIO_PinModeSet(PUMP_PORT, PUMP_PIN_LOW, gpioModePushPull, 0); // I1B = 0
-  GPIO_PinModeSet(PUMP_PORT, PUMP_PIN_PWM, gpioModePushPull, 0); // I1A = 0 (off)
+  GPIO_PinModeSet(PUMP_PORT, PUMP_PIN_LOW, gpioModePushPull, 0); // I2B = 0
+  GPIO_PinModeSet(PUMP_PORT, PUMP_PIN_PWM, gpioModePushPull, 0); // I2A = 0 (off)
 }
 
 // Initialize and start HW PWM on TIMER0 CC0 at PWM_FREQ_HZ with duty = 1/PWM_DEN.
@@ -219,21 +222,50 @@ static void sample_cb(sl_sleeptimer_timer_handle_t *handle, void *data)
     seconds_since_on = 0;
   }
 
-  // Give error
-  if (s_enabled && seconds_since_on >= s_min_after_s && s_lpm < s_min_lpm_after) {
-    // the pump is on and the flow rate is bellow the minimum threshold
-    // send the error of dryrun
-    shared_set_err(1);
-  } else if (!s_enabled) {
-    shared_set_err(0);
-  } else if (!s_enabled && s_lpm > s_min_lpm_after) {
-    // flow detection when disabled
-    shared_set_err(2);
-  }
+  // ---- Error evaluation ----
+    uint8_t err = 0;
+
+    if (s_dryrun_latched) {
+      // Once dry-run is latched, always report error=1 until re-enable
+      err = 1;
+    } else {
+      if (s_enabled) {
+        // Pump is running: check for dry-run condition
+        if (seconds_since_on >= s_min_after_s && s_lpm < s_min_lpm_after) {
+          // Dry-run detected: latch error and immediately turn pump off
+          err = 1;
+          s_dryrun_latched = true;
+
+          s_enabled = false;
+          pump_on(false);   // Stop PWM and drive outputs low
+          // Sampling timer keeps running so we can keep reporting err=1
+        } else {
+          // Pump running and flow above threshold → no error
+          err = 0;
+        }
+      } else {
+        // Pump is off: check for unexpected flow (leak/backflow/etc.)
+        if (s_lpm > s_min_lpm_after) {
+          err = 2;
+        } else {
+          err = 0;
+        }
+      }
+    }
 
   // Report flow scaled by 100 (fixed-point for BLE/transport)
   uint16_t flow_x100 = (uint16_t)(s_lpm * 100.0 + 0.5);
   shared_set_flow_x100(flow_x100);
+
+  // ---- Error reporting with simple dedup ----
+    static uint8_t s_last_err_sent = 0xFF;
+    bool err_changed = false;
+
+    if (err != s_last_err_sent) {
+      s_last_err_sent = err;
+      shared_set_err(err);
+      err_changed = true;
+    }
 
   // Notify BLE stack via external signal; OR multiple bits if needed.
     uint32_t bits = SIG_FLOW | SIG_ERR;   //in case of more signals, logical OR them
@@ -271,6 +303,11 @@ void hydro_enable(bool on)
   pump_on(on);
 
   if (on) {
+
+      // Clear latched dry-run and error when (re)enabling the block
+      s_dryrun_latched = false;
+      shared_set_err(0);
+
       sl_status_t sc;
       // Sample frequency set to 1 Hz
       sc = sl_sleeptimer_start_periodic_timer_ms(&s_sample_tmr, 1000, sample_cb, NULL, 0, 0);
@@ -279,10 +316,14 @@ void hydro_enable(bool on)
       s_last_pulses = s_pulses;
       s_error = 0;
     } else {
-        // Stop timers and force PWM pin low to fully disable drive
+
+      // On disable: clear error and stop timers
+      shared_set_err(0);
+      // Stop timers and force PWM pin low to fully disable drive
       (void)sl_sleeptimer_stop_timer(&s_pwm_tmr);
       (void)sl_sleeptimer_stop_timer(&s_sample_tmr);
       GPIO_PinOutClear(PUMP_PORT, PUMP_PIN_PWM);
+
     }
 }
 
